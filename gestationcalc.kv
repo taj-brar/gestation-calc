@@ -1,0 +1,59 @@
+<MyRoot>
+    results: results
+
+    BoxLayout:
+        orientation: "vertical"
+        size_hint: 0.5, 1
+        pos_hint: {"center_x": 0.5}
+
+        BoxLayout:
+            orientation: "horizontal"
+
+            Spinner:
+                id: lp_years
+                text: "YYYY"
+                values: ["2023", "2022"]
+                on_text: root.lp_year_clicked(lp_years.text)
+
+            Spinner:
+                id: lp_months
+                text: "MM"
+                values: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
+                on_text: root.lp_month_clicked(lp_months.text)
+
+            Spinner:
+                id: lp_days
+                text: "DD"
+                values: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"]
+                on_text: root.lp_day_clicked(lp_days.text)
+
+        BoxLayout:
+            orientation: "horizontal"
+
+            Spinner:
+                id: prj_years
+                text: "YYYY"
+                values: ["2023", "2022"]
+                on_text: root.prj_year_clicked(prj_years.text)
+
+            Spinner:
+                id: prj_months
+                text: "MM"
+                values: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
+                on_text: root.prj_month_clicked(prj_months.text)
+
+            Spinner:
+                id: prj_days
+                text: "DD"
+                values: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"]
+                on_text: root.prj_day_clicked(prj_days.text)
+
+        # Submit button
+        Button:
+            text: "Submit"
+            on_press: root.calc()
+
+        # Results
+        TextInput:
+            id: results
+            disabled: True

@@ -29,7 +29,7 @@ lengths = {8: '<4cm',
 
 def get_results(prj_date, last_period):
     # Catch any exceptions caused by bad input
-    try :
+    try:
         s1 = status_today(last_period)
         s2 = status_at_date(prj_date, last_period)
         return "Today: {}, {}\nProjected Date: {}, {}".format(s1['length'], s1['weight'], s2['length'], s2['weight'])
@@ -80,9 +80,41 @@ class MyRoot(BoxLayout):
     def __init__(self):
         super(MyRoot, self).__init__()
 
+        # Instantiate
+        self.lp_year = "-1"
+        self.lp_month = "-1"
+        self.lp_day = "-1"
+        self.prj_year = "-1"
+        self.prj_month = "-1"
+        self.prj_day = "-1"
+        self.prj_date = "-1"
+        self.lp_date = "-1"
+
     def calc(self):
+        # Create dates
+        self.prj_date = self.prj_year + "-" + self.prj_month + "-" + self.prj_day
+        self.lp_date = self.lp_year + "-" + self.lp_month + "-" + self.lp_day
+
         # Enter result into text field
-        self.results.text = get_results(self.prj_date.text, self.lp_date.text)
+        self.results.text = get_results(self.prj_date, self.lp_date)
+
+    def lp_year_clicked(self, value):
+        self.lp_year = value
+
+    def lp_month_clicked(self, value):
+        self.lp_month = value
+
+    def lp_day_clicked(self, value):
+        self.lp_day = value
+
+    def prj_year_clicked(self, value):
+        self.prj_year = value
+
+    def prj_month_clicked(self, value):
+        self.prj_month = value
+
+    def prj_day_clicked(self, value):
+        self.prj_day = value
 
 
 class GestationCalcApp(App):
