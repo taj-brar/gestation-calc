@@ -1,8 +1,11 @@
+import datetime
+
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from datetime import *
 
 DAYS_IN_WEEK = 7
+DAYS_IN_PREG = 7 * 40
 MIN_WEEKS = 8
 MAX_WEEKS = 44
 
@@ -50,7 +53,7 @@ def status_at_date(prj_date, last_period):
 
 def length_at_date(prj_date, lp_date):
     # Get number of weeks between dates
-    num_weeks = week_delta(prj_date, lp_date)
+    num_weeks = round(week_delta(prj_date, lp_date))
 
     # Return length based on weeks
     return lengths[num_weeks] if (MIN_WEEKS <= num_weeks < MAX_WEEKS) else "N/A"
@@ -58,22 +61,32 @@ def length_at_date(prj_date, lp_date):
 
 def weight_at_date(prj_date, lp_date):
     # Get number of weeks between dates
-    num_weeks = week_delta(prj_date, lp_date)
+    num_weeks = round(week_delta(prj_date, lp_date))
 
     # Return length based on weeks
     return weights[num_weeks] if (MIN_WEEKS <= num_weeks < MAX_WEEKS) else "N/A"
 
 
 def week_delta(prj_date, lp_date):
-    # Create date objects from given ISO formats
-    arb_date = date.fromisoformat(prj_date)
-    last_period = date.fromisoformat(lp_date)
+    try:
+        # Create date objects from given ISO formats
+        arb_date = date.fromisoformat(prj_date)
+        last_period = date.fromisoformat(lp_date)
 
-    # Calculate delta
-    delta = arb_date - last_period
+        # Calculate delta
+        delta = arb_date - last_period
 
-    # Return number of weeks
-    return round(delta.days / DAYS_IN_WEEK)
+        # Return number of weeks
+        return delta.days / DAYS_IN_WEEK
+    except:
+        return -1
+
+
+def days_to_weeks(num_days):
+    weeks = int(num_days / DAYS_IN_WEEK)
+    days = num_days % DAYS_IN_WEEK
+
+    return str(weeks) + " weeks,\n" + str(days) + " days"
 
 
 class MyRoot(BoxLayout):
@@ -95,8 +108,32 @@ class MyRoot(BoxLayout):
         self.prj_date = self.prj_year + "-" + self.prj_month + "-" + self.prj_day
         self.lp_date = self.lp_year + "-" + self.lp_month + "-" + self.lp_day
 
-        # Enter result into text field
-        self.results.text = get_results(self.prj_date, self.lp_date)
+        try:
+            last_prd = date.fromisoformat(self.lp_date)
+            future_date = date.fromisoformat(self.prj_date)
+            est_delv = last_prd + timedelta(days=7 * 40)
+        except ValueError:
+            return
+
+        # Enter dates
+        self.td_date_btn.text = date.today().isoformat()
+        self.prj_date_btn.text = self.prj_date
+        self.delv_date_btn.text = est_delv.isoformat()
+
+        # Enter ages
+        self.td_age_btn.text = days_to_weeks((date.today() - last_prd).days)
+        self.prj_age_btn.text = days_to_weeks((future_date - last_prd).days)
+        self.delv_age_btn.text = days_to_weeks((est_delv - last_prd).days)
+
+        # Enter weights
+        self.td_weight_btn.text = weight_at_date(date.today().isoformat(), self.lp_date)
+        self.prj_weight_btn.text = weight_at_date(self.prj_date, self.lp_date)
+        self.delv_weight_btn.text = weight_at_date(est_delv.isoformat(), self.lp_date)
+
+        # Enter lengths
+        self.td_length_btn.text = length_at_date(date.today().isoformat(), self.lp_date)
+        self.prj_length_btn.text = length_at_date(self.prj_date, self.lp_date)
+        self.delv_length_btn.text = length_at_date(est_delv.isoformat(), self.lp_date)
 
     def lp_year_clicked(self, value):
         self.lp_year = value

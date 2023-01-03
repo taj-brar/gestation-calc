@@ -1,59 +1,296 @@
 <MyRoot>
-    results: results
+    td_date_btn: td_date_btn
+    td_age_btn: td_age_btn
+    td_weight_btn: td_weight_btn
+    td_length_btn: td_length_btn
+
+    prj_date_btn: prj_date_btn
+    prj_age_btn: prj_age_btn
+    prj_weight_btn: prj_weight_btn
+    prj_length_btn: prj_length_btn
+
+    delv_date_btn: delv_date_btn
+    delv_age_btn: delv_age_btn
+    delv_weight_btn: delv_weight_btn
+    delv_length_btn: delv_length_btn
 
     BoxLayout:
         orientation: "vertical"
-        size_hint: 0.5, 1
-        pos_hint: {"center_x": 0.5}
+        spacing: 2
+        background_color: 1, 1, 1, 1
+
+        Button:
+            disabled: True
+            size_hint: 1, 0.05
+            pos_hint: {"center_x": 0.5}
+            color: 0, 0, 0, 1
+            background_color: 1, 1, 1, 1
+            background_normal: ""
+            background_disabled_normal: ""
+            text: "Select date of last period:"
 
         BoxLayout:
             orientation: "horizontal"
+            size_hint: 1, 0.2
+            pos_hint: {"center_x": 0.5}
+            spacing: 2
 
             Spinner:
                 id: lp_years
                 text: "YYYY"
                 values: ["2023", "2022"]
+                color: 0, 0, 0, 1
+                background_color: 0.98, 0.86, 0.83, 1
+                background_normal: ""
                 on_text: root.lp_year_clicked(lp_years.text)
 
             Spinner:
                 id: lp_months
                 text: "MM"
                 values: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
+                color: 0, 0, 0, 1
+                background_color: 0.98, 0.86, 0.83, 1
+                background_normal: ""
                 on_text: root.lp_month_clicked(lp_months.text)
 
             Spinner:
                 id: lp_days
                 text: "DD"
                 values: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"]
+                color: 0, 0, 0, 1
+                background_color: 0.98, 0.86, 0.83, 1
+                background_normal: ""
                 on_text: root.lp_day_clicked(lp_days.text)
+
+        Button:
+            disabled: True
+            size_hint: 1, 0.05
+            pos_hint: {"center_x": 0.5}
+            color: 0, 0, 0, 1
+            background_color: 1, 1, 1, 1
+            background_normal: ""
+            background_disabled_normal: ""
+            text: "Select future date:"
 
         BoxLayout:
             orientation: "horizontal"
+            size_hint: 1, 0.2
+            pos_hint: {"center_x": 0.5}
+            spacing: 2
 
             Spinner:
                 id: prj_years
                 text: "YYYY"
                 values: ["2023", "2022"]
+                color: 0, 0, 0, 1
+                background_color: 0.98, 0.86, 0.83, 1
+                background_normal: ""
                 on_text: root.prj_year_clicked(prj_years.text)
 
             Spinner:
                 id: prj_months
                 text: "MM"
                 values: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
+                color: 0, 0, 0, 1
+                background_color: 0.98, 0.86, 0.83, 1
+                background_normal: ""
                 on_text: root.prj_month_clicked(prj_months.text)
 
             Spinner:
                 id: prj_days
                 text: "DD"
                 values: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"]
+                color: 0, 0, 0, 1
+                background_color: 0.98, 0.86, 0.83, 1
+                background_normal: ""
                 on_text: root.prj_day_clicked(prj_days.text)
 
         # Submit button
         Button:
+            size_hint: 1, 0.2
+            pos_hint: {"center_x": 0.5}
             text: "Submit"
+            color: 0, 0, 0, 1
+            background_color: 0.83, 0.73, 0.7, 1
+            background_normal: ""
             on_press: root.calc()
 
         # Results
-        TextInput:
-            id: results
-            disabled: True
+        GridLayout:
+            rows: 4
+            cols: 5
+            spacing: 2
+            row_force_default: False
+            row_default_height: 20
+
+            Button:
+                disabled: True
+                color: 0, 0, 0, 1
+                background_color: 1, 1, 1, 1
+                background_normal: ""
+                background_disabled_normal: ""
+                text: ""
+
+            Button:
+                disabled: True
+                color: 0, 0, 0, 1
+                background_color: 1, 1, 1, 1
+                background_normal: ""
+                background_disabled_normal: ""
+                text: "Date"
+
+            Button:
+                disabled: True
+                color: 0, 0, 0, 1
+                background_color: 1, 1, 1, 1
+                background_normal: ""
+                background_disabled_normal: ""
+                text: "Age"
+
+            Button:
+                disabled: True
+                color: 0, 0, 0, 1
+                background_color: 1, 1, 1, 1
+                background_normal: ""
+                background_disabled_normal: ""
+                text: "Weight"
+
+            Button:
+                disabled: True
+                color: 0, 0, 0, 1
+                background_color: 1, 1, 1, 1
+                background_normal: ""
+                background_disabled_normal: ""
+                text: "length"
+
+            Button:
+                disabled: True
+                color: 0, 0, 0, 1
+                background_color: 1, 1, 1, 1
+                background_normal: ""
+                background_disabled_normal: ""
+                text: "Today"
+
+            Button:
+                id: td_date_btn
+                disabled: True
+                color: 0, 0, 0, 1
+                background_color: 1, 1, 1, 1
+                background_normal: ""
+                background_disabled_normal: ""
+                text: "td_date"
+
+            Button:
+                id: td_age_btn
+                disabled: True
+                color: 0, 0, 0, 1
+                background_color: 1, 1, 1, 1
+                background_normal: ""
+                background_disabled_normal: ""
+                text: "td_age"
+
+            Button:
+                id: td_weight_btn
+                disabled: True
+                color: 0, 0, 0, 1
+                background_color: 1, 1, 1, 1
+                background_normal: ""
+                background_disabled_normal: ""
+                text: "td_weight"
+
+            Button:
+                id: td_length_btn
+                disabled: True
+                color: 0, 0, 0, 1
+                background_color: 1, 1, 1, 1
+                background_normal: ""
+                background_disabled_normal: ""
+                text: "td_length"
+
+            Button:
+                disabled: True
+                color: 0, 0, 0, 1
+                background_color: 1, 1, 1, 1
+                background_normal: ""
+                background_disabled_normal: ""
+                text: "Future\ndate"
+
+            Button:
+                id: prj_date_btn
+                disabled: True
+                color: 0, 0, 0, 1
+                background_color: 1, 1, 1, 1
+                background_normal: ""
+                background_disabled_normal: ""
+                text: "prj_date"
+
+            Button:
+                id: prj_age_btn
+                disabled: True
+                color: 0, 0, 0, 1
+                background_color: 1, 1, 1, 1
+                background_normal: ""
+                background_disabled_normal: ""
+                text: "prj_age"
+
+            Button:
+                id: prj_weight_btn
+                disabled: True
+                color: 0, 0, 0, 1
+                background_color: 1, 1, 1, 1
+                background_normal: ""
+                background_disabled_normal: ""
+                text: "prj_weight"
+
+            Button:
+                id: prj_length_btn
+                disabled: True
+                color: 0, 0, 0, 1
+                background_color: 1, 1, 1, 1
+                background_normal: ""
+                background_disabled_normal: ""
+                text: "prj_length"
+
+            Button:
+                disabled: True
+                color: 0, 0, 0, 1
+                background_color: 1, 1, 1, 1
+                background_normal: ""
+                background_disabled_normal: ""
+                text: "Estimated\ndelivery\ndate"
+
+            Button:
+                id: delv_date_btn
+                disabled: True
+                color: 0, 0, 0, 1
+                background_color: 1, 1, 1, 1
+                background_normal: ""
+                background_disabled_normal: ""
+                text: "delv_date"
+
+            Button:
+                id: delv_age_btn
+                disabled: True
+                color: 0, 0, 0, 1
+                background_color: 1, 1, 1, 1
+                background_normal: ""
+                background_disabled_normal: ""
+                text: "delv_age"
+
+            Button:
+                id: delv_weight_btn
+                disabled: True
+                color: 0, 0, 0, 1
+                background_color: 1, 1, 1, 1
+                background_normal: ""
+                background_disabled_normal: ""
+                text: "delv_weight"
+
+            Button:
+                id: delv_length_btn
+                disabled: True
+                color: 0, 0, 0, 1
+                background_color: 1, 1, 1, 1
+                background_normal: ""
+                background_disabled_normal: ""
+                text: "delv_length"
